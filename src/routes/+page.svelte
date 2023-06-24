@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let form;
+	import type { ItemListing } from '$lib/server/item';
+
+	export let form: { success: boolean; body: ItemListing[] };
 </script>
 
 <h1>Welcome to Packie</h1>
@@ -11,6 +13,17 @@
 
 <!-- after submit, display the results of the action -->
 
-<!-- {#if form?.success} -->
-{JSON.stringify(form)}
-<!-- {/if} -->
+{#if form?.success}
+	{#each form.body as item}
+		<div style="display:flex;">
+			<img src={item.image} alt={item.name} style="max-height: 20vh;" />
+			<div>
+				<h4>{item.name}</h4>
+				<h5>{item.price}</h5>
+
+				<a href={item.directLink}>{item.provider}</a>
+			</div>
+		</div>
+		<hr />
+	{/each}
+{/if}
