@@ -1,6 +1,6 @@
 <script lang="ts">
+	import ProductCard from '$lib/productCards.svelte';
 	import type { ItemListing } from '$lib/server/item';
-
 	export let form: { success: boolean; body: ItemListing[] };
 </script>
 
@@ -14,16 +14,5 @@
 <!-- after submit, display the results of the action -->
 
 {#if form?.success}
-	{#each form.body as item}
-		<div style="display:flex;">
-			<img src={item.image} alt={item.name} style="max-height: 20vh;" />
-			<div>
-				<h4>{item.name}</h4>
-				<h5>{item.price}</h5>
-
-				<a href={item.directLink}>{item.provider}</a>
-			</div>
-		</div>
-		<hr />
-	{/each}
+	<ProductCard items={form.body} />
 {/if}
